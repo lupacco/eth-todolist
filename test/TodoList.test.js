@@ -41,4 +41,16 @@ contract('TodoList', (accounts) => {
         assert.equal(event.content, 'Second task! ma mennn!')
         assert.equal(event.completed, false)
     })
+
+    it('toggles task completion', async () => {
+        //call the function and storage the result
+        const result = await this.todoList.toggleCompleted(1)
+        // storage the task to compare
+        const task = await this.todoList.tasks(1)
+        //assert the task was completed (since the first task has value of false i'll check for true)
+        assert.equal(task.completed, true)
+        const event = result.logs[0].args
+        assert.equal(event.id.toNumber(), 1)
+        assert.equal(event.completed, true)
+    })
 })

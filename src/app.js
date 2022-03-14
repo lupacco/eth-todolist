@@ -58,6 +58,13 @@ App = {
         window.location.reload() // a javascript thing to say "hey refresh the page!"
     },
 
+    toggleCompleted: async (e) => {
+        App.setLoading(true)
+        const taskId = e.target.name
+        await App.todoList.toggleCompleted(taskId, {from: App.account})
+        window.location.reload()
+    },
+
     setLoading: (boolean) => {
         App.loading = boolean
         const loader = $('#loader')
