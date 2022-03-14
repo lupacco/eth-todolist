@@ -51,6 +51,13 @@ App = {
         App.setLoading(false)
     },
 
+    createTask: async () => {
+        App.setLoading(true)
+        const content = $('#newTask').val()
+        await App.todoList.createTask(content, {from: App.account})
+        window.location.reload() // a javascript thing to say "hey refresh the page!"
+    },
+
     setLoading: (boolean) => {
         App.loading = boolean
         const loader = $('#loader')

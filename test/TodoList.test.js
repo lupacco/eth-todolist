@@ -29,8 +29,16 @@ contract('TodoList', (accounts) => {
         assert.equal(task.content, 'First task the test task')
         assert.equal(task.completed, false)
         assert.equal(taskCount.toNumber(), 1)
+    })
 
-
-
+    it('creates tasks', async () => {
+        const result = await this.todoList.createTask('Second task! ma mennn!')
+        const taskCount = await this.todoList.taskCount()
+        assert.equal(taskCount, 2)
+        //the event is inside the result and we will check if the data is the same as the parameters that we used
+        const event = result.logs[0].args
+        assert.equal(event.id.toNumber(), 2)
+        assert.equal(event.content, 'Second task! ma mennn!')
+        assert.equal(event.completed, false)
     })
 })
